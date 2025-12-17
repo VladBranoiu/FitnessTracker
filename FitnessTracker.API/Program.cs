@@ -1,5 +1,9 @@
 using FitnessTracker.Core.Mappers;
+using FitnessTracker.Core.Services;
+using FitnessTracker.Core.Services.Interfaces;
 using FitnessTracker.Infrastructure;
+using FitnessTracker.Infrastructure.Repositories;
+using FitnessTracker.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,14 +15,11 @@ builder.Services.AddDbContext<FitnessTrackerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-builder.Services.AddAutoMapper(_ => { },
-    typeof(UserMapper), 
-    typeof(WorkoutMapper),
-    typeof(ExerciseMapper),
-    typeof(GoalMapper), 
-    typeof(WorkoutExerciseMapper), 
-    typeof(FoodItemMapper)
-);
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

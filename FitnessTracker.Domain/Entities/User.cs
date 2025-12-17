@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitnessTracker.Domain.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace FitnessTracker.Domain;
@@ -13,7 +14,7 @@ public partial class User
 
     public DateOnly BirthDate { get; set; }
 
-    public string? Gender { get; set; }
+    public Gender Gender { get; set; }
 
     public decimal? Height { get; set; }
 
