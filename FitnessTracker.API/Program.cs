@@ -1,5 +1,13 @@
 using FitnessTracker.Core.Mappers;
+using FitnessTracker.Core.Services;
+using FitnessTracker.Core.Services.Interfaces;
+using FitnessTracker.Core.Validators.UserDtosValidators;
+using FitnessTracker.Infra.Middlewares;
 using FitnessTracker.Infrastructure;
+using FitnessTracker.Infrastructure.Repositories;
+using FitnessTracker.Infrastructure.Repositories.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,14 +19,25 @@ builder.Services.AddDbContext<FitnessTrackerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-builder.Services.AddAutoMapper(_ => { },
-    typeof(UserMapper), 
-    typeof(WorkoutMapper),
-    typeof(ExerciseMapper),
-    typeof(GoalMapper), 
-    typeof(WorkoutExerciseMapper), 
-    typeof(FoodItemMapper)
-);
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserDtoValidator>();
+builder.Services.AddFluentValidationAutoValidation();
+
+builder.Services.AddTransient<ExceptionMiddleware>();
+
+//builder.Services.AddAutoMapper(_ => { },
+//    typeof(UserMapper), 
+//    typeof(WorkoutMapper),
+//    typeof(ExerciseMapper),
+//    typeof(GoalMapper), 
+//    typeof(WorkoutExerciseMapper), 
+//    typeof(FoodItemMapper)
+//);
 
 var app = builder.Build();
 
@@ -31,5 +50,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
