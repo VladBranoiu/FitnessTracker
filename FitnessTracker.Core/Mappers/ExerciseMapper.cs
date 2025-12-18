@@ -25,6 +25,7 @@ public class ExerciseMapper
             DifficultyLevel = createExerciseDto.DifficultyLevel
         };
     }
+
     public static void UpdateEntity(Exercise exercise, UpdateExerciseDto updateExerciseDto)
     {
         exercise.Name = updateExerciseDto.Name;

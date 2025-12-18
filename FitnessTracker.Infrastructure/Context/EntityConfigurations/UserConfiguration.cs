@@ -47,6 +47,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         {
             table.HasCheckConstraint("CK_Users_Email_Format", "[Email] LIKE '%_@__%.__%'");
             table.HasCheckConstraint("CK_Users_BirthDate", "[BirthDate] <= GETDATE()");
+            table.HasCheckConstraint("CK_Users_MinAge", "[BirthDate] <= DATEADD(YEAR, -13, GETDATE())");
             table.HasCheckConstraint("CK_Users_Height", "[Height] BETWEEN 50 AND 250");
             table.HasCheckConstraint("CK_Users_Weight", "[Weight] BETWEEN 20 AND 300");
         });

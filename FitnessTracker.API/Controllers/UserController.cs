@@ -1,5 +1,6 @@
 ﻿using FitnessTracker.Core.Dtos.UserDtos;
 using FitnessTracker.Core.Services.Interfaces;
+using FitnessTracker.Infrastructure.Constants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,40 +21,68 @@ public class UserController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var allUsers = await _userService.GetAllAsync();
-        return Ok(allUsers);
+        return Ok(new
+        {
+            Message = SuccessMessages.UsersFetched,
+            Data = allUsers
+        });
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{userId:int}")]
     public async Task<IActionResult> GetById(int userId)
     {
         var foundUser = await _userService.GetByIdAsync(userId);
         if (foundUser == null)
-            return NotFound();
-        return Ok(foundUser);
+        {
+            return NotFound(new
+            {
+                Message = string.Format(ErrorMessages.UserNotFoundById, userId)
+            });
+        }
+        return Ok (new
+        {
+            Message = SuccessMessages.UserFetched,
+            Data = foundUser
+        });
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateUserDto createUserDto)
     {
         var createdUser = await _userService.CreateAsync(createUserDto);
-        return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, createdUser);
+        return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, new
+        {
+            Message = SuccessMessages.UserCreated,
+            Data = createdUser
+        });
     }
 
-    [HttpPut("{id:int}")]
+    [HttpPut("{userId:int}")]
     public async Task<IActionResult> Update(int userId, [FromBody] UpdateUserDto updateUserDto)
     {
         var updatedUser = await _userService.UpdateAsync(userId, updateUserDto);
         if (updatedUser == null)
-            return NotFound();
-        return Ok(updatedUser);
+        {
+            return NotFound(new
+            {
+                Message = string.Format(ErrorMessages.UserNotFoundById, userId)
+            });
+        }
+        return Ok(new
+        {
+            Message = SuccessMessages.ProfileUpdated,
+            Data = updatedUser
+        });
     }
 
-    [HttpDelete("{id:int}")]
+    [HttpDelete("{userId:int}")]
     public async Task<IActionResult> Delete(int userId)
     {
-        var isUserDeleted = await _userService.DeleteAsync(userId);
-        if (!isUserDeleted)
-            return NotFound();
-        return NoContent();
+        await _userService.DeleteAsync(userId);
+        
+        return Ok(new
+        {
+            Message = SuccessMessages.UserDeleted
+        });
     }
 }

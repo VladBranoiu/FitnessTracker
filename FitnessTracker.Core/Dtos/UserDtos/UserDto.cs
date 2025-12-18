@@ -9,8 +9,8 @@ public class UserDto
     public string Email { get; set; } = null!;
     public DateOnly BirthDate { get; set; }
     public Gender Gender { get; set; }
-    public decimal? Height { get; set; }
-    public decimal? Weight { get; set; }
+    public decimal Height { get; set; }
+    public decimal Weight { get; set; }
     public DateOnly? RegistrationDate { get; set; }
 
 }
