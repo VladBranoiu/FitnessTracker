@@ -2,6 +2,7 @@
 
 public static class ValidationMessages
 {
+    //User
     public const string NameRequired = "Name is required";
     public const string EmailRequired = "Email is required";
     public const string BirthdayRequired = "Birthday is required";
@@ -21,4 +22,15 @@ public static class ValidationMessages
     public const string MinUserAge = "User must be at least 13 years old.";
     public const string HeightRange = "Height must be between 50 and 250 cm.";
     public const string WeightRange = "Weight must be between 20 and 300 kg.";
+
+    //workout
+    public const string WorkoutNameRequired = "Workout name is required.";
+    public const string WorkoutNameMaxLength = "Workout name must not exceed 100 characters.";
+    public const string WorkoutDateValidation = "Workout date cannot be in the future.";
+    public const string WorkoutDurationRange = "Duration must be between 5 and 300 minutes.";
+    public const string WorkoutBeforeRegistrationValidation = "Workout date cannot be before user registration date.";
+    public const string WorkoutOverlapValidation = "Workout time overlaps with an existing workout.";
+    public const string DurationPositive = "Duration must be a positive value.";
+    public const string DurationMaxLimit = "Duration exceeds the maximum allowed limit.";
+    public const string WorkoutDateNotNull = "The date must be not null";
 }

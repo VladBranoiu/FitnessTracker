@@ -2,7 +2,9 @@
 
 public class UpdateWorkoutDto
 {
-    public DateOnly? Date { get; set; }
-    public int? DurationInMinutes { get; set; }
+    public int WorkoutId { get; set; }
+    public required string Name { get; set; }
+    public DateTime Date { get; set; }
+    public int DurationInMinutes { get; set; }
     public string? Notes { get; set; }
 } 

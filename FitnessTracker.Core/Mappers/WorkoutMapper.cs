@@ -9,7 +9,8 @@ public class WorkoutMapper
     {
         return new WorkoutDto
         {
-            Id = workout.Id,
+            WorkoutId = workout.Id,
+            Name = workout.Name,
             Date = workout.Date,
             DurationInMinutes = workout.DurationInMinutes,
             Notes = workout.Notes,
@@ -21,6 +22,7 @@ public class WorkoutMapper
         return new Workout
         {
             Date = createDto.Date,
+            Name = createDto.Name,
             DurationInMinutes = createDto.DurationInMinutes,
             Notes = createDto.Notes,
             UserId = createDto.UserId
@@ -28,6 +30,7 @@ public class WorkoutMapper
     }
     public static void UpdateEntity(Workout workout, UpdateWorkoutDto updateDto)
     {
+        workout.Name = updateDto.Name;
         workout.Date = updateDto.Date;
         workout.DurationInMinutes = updateDto.DurationInMinutes;
         workout.Notes = updateDto.Notes;

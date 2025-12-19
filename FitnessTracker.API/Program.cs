@@ -22,8 +22,12 @@ builder.Services.AddDbContext<FitnessTrackerContext>(options =>
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateUserDtoValidator>();
 builder.Services.AddFluentValidationAutoValidation();

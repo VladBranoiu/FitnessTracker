@@ -15,6 +15,8 @@ public class WorkoutConfiguration : IEntityTypeConfiguration<Workout>
         modelBuilder
             .ToTable("Workout");
 
+        modelBuilder.Property(workout => workout.Name).IsRequired().HasMaxLength(50);
+
         modelBuilder
             .Property(e => e.Notes)
             .HasMaxLength(255)
@@ -24,5 +26,11 @@ public class WorkoutConfiguration : IEntityTypeConfiguration<Workout>
             .HasOne(d => d.User).WithMany(p => p.Workouts)
             .HasForeignKey(d => d.UserId)
             .HasConstraintName("FK_Workout_User");
+
+        modelBuilder.ToTable(table =>
+        {
+            table.HasCheckConstraint("CK_Workout_DurationInMinutes", "[DurationInMinutes] BETWEEN 5 AND 300");
+            table.HasCheckConstraint("CK_Workout_Date", "[Date] <= CURRENT_TIMESTAMP");
+        });
     }
 }
