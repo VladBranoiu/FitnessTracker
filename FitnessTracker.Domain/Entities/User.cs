@@ -20,7 +20,7 @@ public partial class User
 
     public decimal Weight { get; set; }
 
-    public DateOnly? RegistrationDate { get; set; }
+    public DateTime RegistrationDate { get; set; }
 
     public virtual ICollection<FoodLog> FoodLogs { get; set; } = new List<FoodLog>();
 

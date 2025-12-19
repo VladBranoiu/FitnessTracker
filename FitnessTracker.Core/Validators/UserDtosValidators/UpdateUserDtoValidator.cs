@@ -9,33 +9,33 @@ public class UpdateUserDtoValidator : AbstractValidator<UpdateUserDto>
 {
     public UpdateUserDtoValidator()
     {
-        RuleFor(x => x.Name)
+        RuleFor(dto => dto.Name)
             .NotEmpty().WithMessage(NameRequired)
             .MaximumLength(50).WithMessage(NameMaxLength);
 
-        RuleFor(x => x.Email)
+        RuleFor(dto => dto.Email)
             .MaximumLength(50)
-            .When(x => x.Email is not null)
+            .When(dto => dto.Email is not null)
             .WithMessage(InvalidEmailLength)
             .EmailAddress()
-            .When(x => x.Email is not null)
+            .When(dto => dto.Email is not null)
             .WithMessage(InvalidEmail);
         
-        RuleFor(x => x.BirthDate)
+        RuleFor(dto => dto.BirthDate)
             .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.Now))
             .WithMessage(InvalidBirthday)
             .Must(birthDate => birthDate <= DateOnly.FromDateTime(DateTime.Now.AddYears(-13)))
             .WithMessage(MinUserAge);
 
-        RuleFor(x => x.Gender)
+        RuleFor(dto => dto.Gender)
             .NotNull().WithMessage(GenderRequired)
             .IsInEnum();
 
-        RuleFor(x => x.Height)
+        RuleFor(dto => dto.Height)
             .NotNull().WithMessage(HeightRequired)
             .InclusiveBetween(50, 250).WithMessage(HeightRange);
 
-        RuleFor(x => x.Weight)
+        RuleFor(dto => dto.Weight)
             .NotNull().WithMessage(WeightRequired)
             .InclusiveBetween(20, 300).WithMessage(WeightRange);
     }

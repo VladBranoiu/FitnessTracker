@@ -12,22 +12,22 @@ namespace FitnessTracker.Core.Services;
 
 public class UserService : IUserService
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUnitOfWork unitOfWork)
     {
-        _userRepository = userRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IEnumerable<UserDto>> GetAllAsync()
     {
-        var users = await _userRepository.GetAllAsync();
+        var users = await _unitOfWork.UserRepository.GetAllAsync();
         return users.Select(UserMapper.ToDto);
     }
 
     public async Task<UserDto?> GetByIdAsync(int userId)
     {
-       var user = await _userRepository.GetByIdAsync(userId);
+       var user = await _unitOfWork.UserRepository.GetByIdAsync(userId);
 
        if (user is null)
        {
@@ -38,27 +38,27 @@ public class UserService : IUserService
 
     public async Task<UserDto> CreateAsync(CreateUserDto createUserDto)
     {
-        if (await _userRepository.ExistsByEmailAsync(createUserDto.Email))
+        if (await _unitOfWork.UserRepository.ExistsByEmailAsync(createUserDto.Email))
         {
             throw new BadRequestException(ErrorMessages.EmailAlreadyExists);
         }
         var user = UserMapper.ToEntity(createUserDto);
 
-        await _userRepository.AddAsync(user);
-        await _userRepository.SaveChangesAsync();
+        await _unitOfWork.UserRepository.AddAsync(user);
+        await _unitOfWork.UserRepository.SaveChangesAsync();
 
         return UserMapper.ToDto(user);
     }
 
     public async Task<UserDto?> UpdateAsync(int userId, UpdateUserDto updateUserDto)
     {
-        var user = await _userRepository.GetByIdAsync(userId);
+        var user = await _unitOfWork.UserRepository.GetByIdAsync(userId);
         if (user is null)
         {
             throw new NotFoundException(ErrorMessages.UserNotFoundById);
         }
 
-        if (await _userRepository.ExistsByEmailAsync(user.Email))
+        if (await _unitOfWork.UserRepository.ExistsByEmailAsync(user.Email))
         {
             var errors = new Dictionary<string, List<string>>
             {
@@ -68,20 +68,20 @@ public class UserService : IUserService
 
         UserMapper.UpdateEntity(user, updateUserDto);
 
-        await _userRepository.SaveChangesAsync();
+        await _unitOfWork.UserRepository.SaveChangesAsync();
 
         return UserMapper.ToDto(user);
     }
 
     public async Task DeleteAsync(int userId)
     {
-        var user = await _userRepository.GetByIdAsync(userId);
+        var user = await _unitOfWork.UserRepository.GetByIdAsync(userId);
         if (user is null)
         {
             throw new NotFoundException(ErrorMessages.UserNotFoundById);
         }
 
-        _userRepository.Remove(user);
-        await _userRepository.SaveChangesAsync();
+        _unitOfWork.UserRepository.Remove(user);
+        await _unitOfWork.UserRepository.SaveChangesAsync();
     }
 }

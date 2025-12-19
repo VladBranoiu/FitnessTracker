@@ -11,6 +11,6 @@ public class UserDto
     public Gender Gender { get; set; }
     public decimal Height { get; set; }
     public decimal Weight { get; set; }
-    public DateOnly? RegistrationDate { get; set; }
+    public DateTime RegistrationDate { get; set; }
 
 }

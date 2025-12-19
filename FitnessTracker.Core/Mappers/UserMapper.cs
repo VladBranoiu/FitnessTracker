@@ -30,8 +30,7 @@ public class UserMapper
             Gender = createUserDto.Gender,
             Height = createUserDto.Height,
             Weight = createUserDto.Weight,
-            RegistrationDate = DateOnly.FromDateTime(DateTime.UtcNow.Date)
-
+            RegistrationDate = DateTime.UtcNow
         };
     }
     public static void UpdateEntity(User user, UpdateUserDto updateUserDto)

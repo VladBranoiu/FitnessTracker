@@ -9,30 +9,30 @@ public class CreateUserDtoValidator : AbstractValidator<CreateUserDto>
 {
     public CreateUserDtoValidator()
     {
-        RuleFor(x => x.Name)
+        RuleFor(dto => dto.Name)
                .NotEmpty().WithMessage(NameRequired)
                .MaximumLength(50).WithMessage(NameMaxLength);
 
-        RuleFor(x => x.Email)
+        RuleFor(dto => dto.Email)
             .NotEmpty().WithMessage(EmailRequired)
                 .MaximumLength(50).WithMessage(InvalidEmailLength)
                 .EmailAddress().WithMessage(InvalidEmail);
 
-        RuleFor(x => x.BirthDate)
+        RuleFor(dto => dto.BirthDate)
             .NotEmpty().WithMessage(BirthdayRequired)
             .LessThan(DateOnly.FromDateTime(DateTime.Now)).WithMessage(InvalidBirthday)
             .Must(birthDate => birthDate <= DateOnly.FromDateTime(DateTime.Now.AddYears(-13)))
             .WithMessage(MinUserAge);
 
-        RuleFor(x => x.Gender)
+        RuleFor(dto => dto.Gender)
             .NotNull().WithMessage(GenderRequired)
             .IsInEnum();
 
-        RuleFor(x => x.Height)
+        RuleFor(dto => dto.Height)
             .NotNull().WithMessage(HeightRequired)
             .InclusiveBetween(50, 250).WithMessage(HeightRange);
 
-        RuleFor(x => x.Weight)
+        RuleFor(dto => dto.Weight)
             .NotNull().WithMessage(WeightRequired)
             .InclusiveBetween(20, 300).WithMessage(WeightRange);
     }
