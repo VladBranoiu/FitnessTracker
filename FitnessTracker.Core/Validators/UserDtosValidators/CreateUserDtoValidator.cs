@@ -10,7 +10,7 @@ public class CreateUserDtoValidator : AbstractValidator<CreateUserDto>
     public CreateUserDtoValidator()
     {
         RuleFor(dto => dto.Name)
-               .NotEmpty().WithMessage(NameRequired)
+               .NotEmpty().WithMessage(UserNameRequired)
                .MaximumLength(50).WithMessage(NameMaxLength);
 
         RuleFor(dto => dto.Email)

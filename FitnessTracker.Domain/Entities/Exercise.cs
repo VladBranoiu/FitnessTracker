@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitnessTracker.Domain.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace FitnessTracker.Domain;
@@ -9,7 +10,7 @@ public partial class Exercise
 
     public string Name { get; set; } = null!;
 
-    public string? MuscleGroup { get; set; }
+    public MuscleGroup MuscleGroup { get; set; }
 
-    public string? DifficultyLevel { get; set; }
+    public DifficultyLevel DifficultyLevel { get; set; }
 }
