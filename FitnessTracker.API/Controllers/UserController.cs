@@ -50,7 +50,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateUserDto createUserDto)
     {
         var createdUser = await _userService.CreateAsync(createUserDto);
-        return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, new
+        return CreatedAtAction(nameof(GetById), new { userId = createdUser.Id }, new
         {
             Message = SuccessMessages.UserCreated,
             Data = createdUser

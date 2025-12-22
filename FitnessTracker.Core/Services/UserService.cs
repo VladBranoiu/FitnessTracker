@@ -82,6 +82,6 @@ public class UserService : IUserService
         }
 
         _unitOfWork.UserRepository.Remove(user);
-        await _unitOfWork.UserRepository.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
     }
 }

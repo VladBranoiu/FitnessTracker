@@ -26,8 +26,8 @@ public class Repository<T> : IRepository<T> where T : class
     public Task<List<T>> GetAllAsync()
         => _dbSet.ToListAsync();
 
-    public Task<T?> GetByIdAsync(int id)
-        => _dbSet.FindAsync(id).AsTask();
+    public async Task<T?> GetByIdAsync(int id)
+        => await _dbSet.FindAsync(id);
 
     public void Remove(T entity)
     {

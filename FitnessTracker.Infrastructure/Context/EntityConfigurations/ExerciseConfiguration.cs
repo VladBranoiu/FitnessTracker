@@ -19,11 +19,13 @@ public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
 
         modelBuilder
             .Property(e => e.DifficultyLevel)
+            .HasConversion<string>()
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
         modelBuilder
             .Property(e => e.MuscleGroup)
+            .HasConversion<string>()
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
@@ -31,5 +33,6 @@ public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
             .Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
     }
 }
