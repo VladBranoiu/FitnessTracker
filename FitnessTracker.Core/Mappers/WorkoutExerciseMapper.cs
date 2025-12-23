@@ -21,7 +21,6 @@ public class WorkoutExerciseMapper
     {
         return new WorkoutExercise
         {
-            WorkoutId = createWorkoutExerciseDto.WorkoutId,
             ExerciseId = createWorkoutExerciseDto.ExerciseId,
             Sets = createWorkoutExerciseDto.Sets,
             Reps = createWorkoutExerciseDto.Reps,

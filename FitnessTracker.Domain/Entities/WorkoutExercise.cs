@@ -5,11 +5,12 @@ namespace FitnessTracker.Domain;
 
 public partial class WorkoutExercise
 {
+    public int Id { get; set; }
     public int Sets { get; set; }
 
     public int Reps { get; set; }
 
-    public int WeightUsed { get; set; }
+    public decimal WeightUsed { get; set; }
 
     public int WorkoutId { get; set; }
 
