@@ -1,6 +1,9 @@
 ﻿using FitnessTracker.Core.Dtos.GoalDtos;
 using FitnessTracker.Core.Mappers;
 using FitnessTracker.Core.Services.Interfaces;
+using FitnessTracker.Domain;
+using FitnessTracker.Infrastructure.Exceptions;
+using FitnessTracker.Infrastructure.Repositories;
 using FitnessTracker.Infrastructure.Repositories.Interfaces;
 
 namespace FitnessTracker.Core.Services;
@@ -8,10 +11,13 @@ namespace FitnessTracker.Core.Services;
 public class GoalService : IGoalService
 {
     private readonly IGoalRepository _goalRepository;
+    private readonly IUserRepository _userRepository;
 
-    public GoalService(IGoalRepository goalRepository)
+    public GoalService(IGoalRepository goalRepository, IUserRepository userRepository)
     {
         _goalRepository = goalRepository;
+        _userRepository = userRepository;
+
     }
 
     public async Task<List<GoalDto>> GetAllAsync()
@@ -32,9 +38,17 @@ public class GoalService : IGoalService
         return goals.Select(GoalMapper.ToDto).ToList();
     }
 
-    public async Task<GoalDto> CreateAsync(CreateGoalDto dto)
+    public async Task<GoalDto> CreateAsync(CreateGoalDto createGoalDto)
     {
-        var goal = GoalMapper.ToEntity(dto);
+        var user = await _userRepository.GetByIdAsync(createGoalDto.UserId);
+        if (user == null)
+            throw new NotFoundException("User not found.");
+
+        var registrationDate = DateOnly.FromDateTime(user.RegistrationDate);
+        if (createGoalDto.StartDate < registrationDate)
+            throw new BadRequestException("StartDate cannot be before user's RegistrationDate.");
+
+        var goal = GoalMapper.ToEntity(createGoalDto);
 
         await _goalRepository.AddAsync(goal);
         await _goalRepository.SaveChangesAsync();
@@ -42,13 +56,13 @@ public class GoalService : IGoalService
         return GoalMapper.ToDto(goal);
     }
 
-    public async Task<bool> UpdateAsync(int id, UpdateGoalDto dto)
+    public async Task<bool> UpdateAsync(int id, UpdateGoalDto updateGoalDto)
     {
         var goal = await _goalRepository.GetByIdAsync(id);
         if (goal == null)
             return false;
 
-        GoalMapper.UpdateEntity(goal, dto);
+        GoalMapper.UpdateEntity(goal, updateGoalDto);
         await _goalRepository.SaveChangesAsync();
 
         return true;

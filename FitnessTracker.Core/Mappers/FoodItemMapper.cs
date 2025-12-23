@@ -29,4 +29,13 @@ public class FoodItemMapper
             Fat = createFoodItemDto.Fat
         };
     }
+
+    public static void UpdateEntity(FoodItem foodItem, UpdateFoodItemDto updateFoodItemDto)
+    {
+        foodItem.Name = updateFoodItemDto.Name;
+        foodItem.Calories = updateFoodItemDto.Calories;
+        foodItem.Protein = updateFoodItemDto.Protein;
+        foodItem.Carbs = updateFoodItemDto.Carbs;
+        foodItem.Fat = updateFoodItemDto.Fat;
+    }
 }
