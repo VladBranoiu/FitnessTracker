@@ -9,7 +9,6 @@ public class WorkoutExerciseMapper
     {
         return new WorkoutExerciseDto
         {
-            WorkoutId = workoutExercise.WorkoutId,
             ExerciseId = workoutExercise.ExerciseId,
             Sets = workoutExercise.Sets,
             Reps = workoutExercise.Reps,
@@ -28,4 +27,10 @@ public class WorkoutExerciseMapper
         };
     }
 
+    public static void UpdateEntity(WorkoutExercise entity, UpdateWorkoutExerciseDto dto)
+    {
+        entity.Sets = dto.Sets;
+        entity.Reps = dto.Reps;
+        entity.WeightUsed = dto.WeightUsed;
+    }
 }

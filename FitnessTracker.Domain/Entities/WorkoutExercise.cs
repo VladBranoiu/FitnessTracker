@@ -5,7 +5,6 @@ namespace FitnessTracker.Domain;
 
 public partial class WorkoutExercise
 {
-    public int Id { get; set; }
     public int Sets { get; set; }
 
     public int Reps { get; set; }

@@ -28,7 +28,7 @@ public class WorkoutService : IWorkoutService
         var workout = await _unitOfWork.WorkoutRepository.GetByIdAsync(id);
         if (workout is null)
         {
-            throw new NotFoundException(ErrorMessages.WorkoutNotFoundById);
+            throw new NotFoundException(string.Format(ErrorMessages.WorkoutNotFoundById, id));
         }
 
         return WorkoutMapper.ToDto(workout);
@@ -108,7 +108,8 @@ public class WorkoutService : IWorkoutService
         {
             throw new NotFoundException(ErrorMessages.WorkoutNotFoundById);
         }
-
+        
+        await _unitOfWork.WorkoutExerciseRepository.RemoveRange(id);
         _unitOfWork.WorkoutRepository.Remove(workout);
         await _unitOfWork.WorkoutRepository.SaveChangesAsync();
     }

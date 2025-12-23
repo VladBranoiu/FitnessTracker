@@ -1,5 +1,7 @@
 ﻿using FitnessTracker.Core.Dtos.WorkoutExerciseDtos;
+using FitnessTracker.Core.Services;
 using FitnessTracker.Core.Services.Interfaces;
+using FitnessTracker.Infrastructure.Constants;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -16,22 +18,32 @@ public class WorkoutExerciseController : ControllerBase
         _workoutExerciseService = workoutExerciseService;
     }
 
+    [HttpGet("{workoutId:int}")]
+    public async Task<IActionResult> GetAll(int workoutId)
+    {
+        var allWorkouts = await _workoutExerciseService.GetAllByWorkoutIdAsync(workoutId);
+        return Ok(new
+        {
+            Message = SuccessMessages.WorkoutsFetched,
+            Data = allWorkouts
+        });
+    }
     [HttpGet]
-    public async Task<ActionResult<List<WorkoutExerciseDto>>> Get(int userId, int workoutId)
-       => Ok(await _workoutExerciseService.GetByWorkoutIdAsync(userId, workoutId));
+    public async Task<ActionResult<WorkoutExerciseDto>> Get(int exerciseId, int workoutId)
+       => Ok(await _workoutExerciseService.GetByWorkoutAndExerciseIdsAsync(exerciseId, workoutId));
 
     [HttpPost]
-    public async Task<ActionResult<WorkoutExerciseDto>> Create(int userId, int workoutId, [FromBody] CreateWorkoutExerciseDto dto)
-        => Ok(await _workoutExerciseService.CreateAsync(userId, workoutId, dto));
+    public async Task<ActionResult<WorkoutExerciseDto>> Create([FromBody] CreateWorkoutExerciseDto dto)
+        => Ok(await _workoutExerciseService.CreateAsync( dto));
 
-    [HttpPut("{workoutExerciseId:int}")]
-    public async Task<ActionResult<WorkoutExerciseDto>> Update(int userId, int workoutId, int workoutExerciseId, [FromBody] UpdateWorkoutExerciseDto dto)
-        => Ok(await _workoutExerciseService.UpdateAsync(userId, workoutId, workoutExerciseId, dto));
+    [HttpPut]
+    public async Task<ActionResult<WorkoutExerciseDto>> Update([FromBody] UpdateWorkoutExerciseDto dto)
+        => Ok(await _workoutExerciseService.UpdateAsync( dto));
 
-    [HttpDelete("{workoutExerciseId:int}")]
-    public async Task<IActionResult> Delete(int userId, int workoutId, int workoutExerciseId)
+    [HttpDelete]
+    public async Task<IActionResult> Delete(int workoutId, int exerciseId)
     {
-        await _workoutExerciseService.DeleteAsync(userId, workoutId, workoutExerciseId);
+        await _workoutExerciseService.DeleteAsync(workoutId, exerciseId);
         return NoContent();
     }
 }

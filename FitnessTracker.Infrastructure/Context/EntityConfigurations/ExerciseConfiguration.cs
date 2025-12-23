@@ -20,7 +20,7 @@ public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
         modelBuilder
             .Property(e => e.DifficultyLevel)
             .HasConversion<string>()
-                .HasMaxLength(10)
+                .HasMaxLength(12)
                 .IsUnicode(false);
 
         modelBuilder

@@ -10,7 +10,7 @@ public class MeasurementLogMapper
         return new MeasurementLogDto
         {
             Id = measurementLog.Id,
-            Date = measurementLog.Date ?? default,
+            Date = measurementLog.Date,
             Weight = measurementLog.Weight,
             BodyFatPercentage = measurementLog.BodyFatPercentage,
             WaistCircumference = measurementLog.WaistCircumference,
@@ -32,5 +32,15 @@ public class MeasurementLogMapper
             Arms = createMeasurementLogDto.Arms,
             UserId = createMeasurementLogDto.UserId
         };
+    }
+
+    public static void UpdateEntity(MeasurementLog entity, UpdateMeasurementLogDto dto)
+    {
+        entity.Date = dto.Date;
+        entity.Weight = dto.Weight;
+        entity.BodyFatPercentage = dto.BodyFatPercentage;
+        entity.WaistCircumference = dto.WaistCircumference;
+        entity.Chest = dto.Chest;
+        entity.Arms = dto.Arms;
     }
 }

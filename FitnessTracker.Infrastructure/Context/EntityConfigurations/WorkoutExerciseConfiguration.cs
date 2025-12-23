@@ -9,11 +9,12 @@ public class WorkoutExerciseConfiguration : IEntityTypeConfiguration<WorkoutExer
 {
     public void Configure(EntityTypeBuilder<WorkoutExercise> modelBuilder)
     {
+        modelBuilder.HasKey(workoutExercise => new { workoutExercise.WorkoutId, workoutExercise.ExerciseId });
+
         modelBuilder.Property(workoutExercise => workoutExercise.WeightUsed)
              .HasPrecision(5, 2);
 
         modelBuilder
-             .HasNoKey()
              .ToTable("WorkoutExercise");
 
         modelBuilder.HasOne(d => d.Exercise).WithMany()
