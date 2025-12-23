@@ -4,6 +4,7 @@ using FitnessTracker.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessTrackerContext))]
-    partial class FitnessTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20251223071756_MeasurementLog.Entity.Update")]
+    partial class MeasurementLogEntityUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +35,9 @@ namespace FitnessTracker.Infrastructure.Migrations
 
                     b.Property<string>("DifficultyLevel")
                         .IsRequired()
-                        .HasMaxLength(12)
+                        .HasMaxLength(10)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(12)");
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("MuscleGroup")
                         .IsRequired()
@@ -305,10 +308,10 @@ namespace FitnessTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("FitnessTracker.Domain.WorkoutExercise", b =>
                 {
-                    b.Property<int>("WorkoutId")
+                    b.Property<int>("ExerciseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ExerciseId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<int>("Reps")
@@ -321,9 +324,12 @@ namespace FitnessTracker.Infrastructure.Migrations
                         .HasPrecision(5, 2)
                         .HasColumnType("decimal(5,2)");
 
-                    b.HasKey("WorkoutId", "ExerciseId");
+                    b.Property<int>("WorkoutId")
+                        .HasColumnType("int");
 
                     b.HasIndex("ExerciseId");
+
+                    b.HasIndex("WorkoutId");
 
                     b.ToTable("WorkoutExercise", (string)null);
                 });

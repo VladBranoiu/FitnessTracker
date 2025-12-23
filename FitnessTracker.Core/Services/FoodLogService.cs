@@ -74,9 +74,6 @@ public class FoodLogService : IFoodLogService
         if (entity == null)
             return false;
 
-        if (entity.UserId == null)
-            throw new BadRequestException("FoodLog has no UserId associated.");
-
         var food = await _foodItemRepository.GetByIdAsync(dto.FoodId);
         if (food == null)
             throw new NotFoundException("Food item not found.");

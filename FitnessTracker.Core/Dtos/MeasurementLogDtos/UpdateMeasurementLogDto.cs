@@ -1,9 +1,6 @@
-﻿using FitnessTracker.Core.Dtos.FoodLogDtos;
-using FitnessTracker.Domain;
+﻿namespace FitnessTracker.Core.Dtos.MeasurementLogDtos;
 
-namespace FitnessTracker.Core.Dtos.MeasurementLogDtos;
-
-public class CreateMeasurementLogDto
+public class UpdateMeasurementLogDto
 {
     public DateOnly Date { get; set; }
     public decimal Weight { get; set; }

@@ -1,5 +1,4 @@
 ﻿using FitnessTracker.Core.Dtos.UserDtos;
-using FitnessTracker.Infrastructure.Constants;
 using FluentValidation;
 using static FitnessTracker.Infrastructure.Constants.ValidationMessages;
 

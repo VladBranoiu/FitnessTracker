@@ -28,7 +28,7 @@ public class UserService : IUserService
 
        if (user is null)
        {
-          throw new NotFoundException(ErrorMessages.UserNotFoundById);
+          throw new NotFoundException(string.Format(ErrorMessages.UserNotFoundById, userId));
        }
         return UserMapper.ToDto(user);
     }
@@ -52,7 +52,7 @@ public class UserService : IUserService
         var user = await _unitOfWork.UserRepository.GetByIdAsync(userId);
         if (user is null)
         {
-            throw new NotFoundException(ErrorMessages.UserNotFoundById);
+            throw new NotFoundException(string.Format(ErrorMessages.UserNotFoundById, userId));
         }
 
         if (await _unitOfWork.UserRepository.ExistsByEmailAsync(user.Email))
@@ -75,7 +75,7 @@ public class UserService : IUserService
         var user = await _unitOfWork.UserRepository.GetByIdAsync(userId);
         if (user is null)
         {
-            throw new NotFoundException(ErrorMessages.UserNotFoundById);
+            throw new NotFoundException(string.Format(ErrorMessages.UserNotFoundById, userId)); ;
         }
 
         _unitOfWork.UserRepository.Remove(user);
