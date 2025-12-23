@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace FitnessTracker.Core.Validators.GoalDtosValidators;
 
-public class UpdateGoalDtoValidator : AbstractValidator<CreateGoalDto>
+public class UpdateGoalDtoValidator : AbstractValidator<UpdateGoalDto>
 {
     public UpdateGoalDtoValidator()
     {

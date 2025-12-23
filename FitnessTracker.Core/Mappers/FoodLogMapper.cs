@@ -10,7 +10,7 @@ public class FoodLogMapper
         return new FoodLogDto
         {
             Id = foodLog.Id,
-            LogDate = foodLog.LogDate ?? default,
+            LogDate = foodLog.LogDate,
             Servings = foodLog.Servings,
             Quantity = foodLog.Quantity,
             UserId = foodLog.UserId,
@@ -27,5 +27,12 @@ public class FoodLogMapper
             UserId = createFoodLogDto.UserId,
             FoodId = createFoodLogDto.FoodId
         };
+    }
+    public static void UpdateEntity(FoodLog foodLog, UpdateFoodLogDto updateFoodLogDto)
+    {
+        foodLog.LogDate = updateFoodLogDto.LogDate;
+        foodLog.Servings = updateFoodLogDto.Servings;
+        foodLog.Quantity = updateFoodLogDto.Quantity;
+        foodLog.FoodId = updateFoodLogDto.FoodId;
     }
 }
