@@ -30,6 +30,10 @@ public class FoodItemConfiguration : IEntityTypeConfiguration<FoodItem>
 
         modelBuilder
             .Property(e => e.Protein).HasColumnType("decimal(6, 2)");
-        
+
+        modelBuilder
+            .HasIndex(f => f.Name)
+            .IsUnique();
+
     }
 }

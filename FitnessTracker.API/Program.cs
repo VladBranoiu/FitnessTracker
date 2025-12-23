@@ -25,6 +25,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
 builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 builder.Services.AddScoped<IWorkoutExerciseRepository, WorkoutExerciseRepository>();
+builder.Services.AddScoped<IGoalRepository, GoalRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -32,6 +33,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IWorkoutExerciseService, WorkoutExerciseService>();
+builder.Services.AddScoped<IGoalService, GoalService>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateUserDtoValidator>();
 builder.Services.AddFluentValidationAutoValidation();
