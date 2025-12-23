@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace FitnessTracker.Core.Validators.FoodItemDtosValidators;
 
-public class UpdateFoodItemDtoValidator : AbstractValidator<CreateFoodItemDto>
+public class UpdateFoodItemDtoValidator : AbstractValidator<UpdateFoodItemDto>
 {
     public UpdateFoodItemDtoValidator()
     {
