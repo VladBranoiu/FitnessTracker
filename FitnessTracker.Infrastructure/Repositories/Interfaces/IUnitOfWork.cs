@@ -7,5 +7,6 @@ public interface IUnitOfWork
     IExerciseRepository ExerciseRepository { get; }
     IWorkoutExerciseRepository WorkoutExerciseRepository { get; }
     IGoalRepository GoalRepository { get; }
+    IFoodItemRepository FoodItemRepository { get; }
     Task SaveChangesAsync();
 }

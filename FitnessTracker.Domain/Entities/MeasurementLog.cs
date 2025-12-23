@@ -7,9 +7,9 @@ public partial class MeasurementLog
 {
     public int Id { get; set; }
 
-    public DateOnly? Date { get; set; }
+    public DateOnly Date { get; set; }
 
-    public decimal? Weight { get; set; }
+    public decimal Weight { get; set; }
 
     public int? BodyFatPercentage { get; set; }
 

@@ -1,4 +1,3 @@
-using FitnessTracker.Core.Mappers;
 using FitnessTracker.Core.Services;
 using FitnessTracker.Core.Services.Interfaces;
 using FitnessTracker.Core.Validators.UserDtosValidators;
@@ -26,6 +25,7 @@ builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
 builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 builder.Services.AddScoped<IWorkoutExerciseRepository, WorkoutExerciseRepository>();
 builder.Services.AddScoped<IGoalRepository, GoalRepository>();
+builder.Services.AddScoped<IFoodItemRepository, FoodItemRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -34,6 +34,7 @@ builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IWorkoutExerciseService, WorkoutExerciseService>();
 builder.Services.AddScoped<IGoalService, GoalService>();
+builder.Services.AddScoped<IFoodItemService, FoodItemService>();
 builder.Services.AddScoped<IFoodLogService, FoodLogService>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateUserDtoValidator>();

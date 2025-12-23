@@ -1,5 +1,4 @@
 ﻿using FitnessTracker.Core.Dtos.WorkoutDtos;
-using FitnessTracker.Core.Services;
 using FitnessTracker.Core.Services.Interfaces;
 using FitnessTracker.Infrastructure.Constants;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +61,7 @@ namespace FitnessTracker.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateWorkoutDto updateWorkoutDto)
         {
-            var updatedWorkout = await _workoutService.UpdateAsync( updateWorkoutDto);
+            var updatedWorkout = await _workoutService.UpdateAsync(updateWorkoutDto);
             if (updatedWorkout == null)
             {
                 return NotFound(new
