@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FitnessTracker.Domain;
+﻿using FitnessTracker.Domain;
 using FitnessTracker.Infrastructure.Context.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,9 +30,6 @@ public partial class FitnessTrackerContext : DbContext
     public virtual DbSet<Workout> Workouts { get; set; }
 
     public virtual DbSet<WorkoutExercise> WorkoutExercises { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

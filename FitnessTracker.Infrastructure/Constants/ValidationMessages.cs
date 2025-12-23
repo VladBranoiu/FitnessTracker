@@ -43,4 +43,14 @@ public static class ValidationMessages
 
     public const string DifficultyLevelRequired = "Difficulty level is required.";
     public const string InvalidDifficultyLevel = "Invalid difficulty level value.";
+
+    //WorkoutExercise
+    public const string WorkoutExerciseNotFound = "Workout exercise not found.";
+    public const string WorkoutExerciseAlreadyExists = "Exercise already exists in this workout.";
+    public const string ExerciseNotFound = "Exercise not found.";
+    public const string WorkoutNotFound = "Workout not found.";
+
+    public const string SetsInvalid = "Sets must be greater than 0.";
+    public const string RepsInvalid = "Reps must be greater than 0.";
+    public const string WeightInvalid = "Weight must be greater or equal to 0.";
 }

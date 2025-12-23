@@ -3,10 +3,7 @@ using FitnessTracker.Core.Mappers;
 using FitnessTracker.Core.Services.Interfaces;
 using FitnessTracker.Infrastructure.Constants;
 using FitnessTracker.Infrastructure.Exceptions;
-using FitnessTracker.Infrastructure.Repositories;
 using FitnessTracker.Infrastructure.Repositories.Interfaces;
-using FluentValidation;
-using System.ComponentModel.DataAnnotations;
 
 namespace FitnessTracker.Core.Services;
 
